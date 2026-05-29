@@ -2,10 +2,10 @@ import { useState } from "react";
 import { flexRender, getCoreRowModel, useReactTable, getSortedRowModel, type VisibilityState, type ColumnDef, type SortingState, type ColumnFiltersState } from "@tanstack/react-table";
 
 import { DataTableFilters } from "./data-table-filters";
-import type { PaginationMeta } from "#/shared/types/pagination";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Card, CardContent } from "../ui/card";
 import { PaginationButtons } from "./pagination-buttons";
+import type { PaginationMeta } from "#/shared/types/pagination";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
 
 interface DataTableProps<TData> {
@@ -54,7 +54,7 @@ export function DataTable<TData>({
 
                 {title && <h2 className="text-lg mb-2">{title}</h2>}
 
-                <div className="flex flex-row">
+                <div className="flex flex-row items-center gap-4">
                     <DataTableFilters
                         table={table}
                     />
@@ -96,12 +96,12 @@ export function DataTable<TData>({
                         </TableBody>
                     </Table>
                     {
-                    meta && (
-                        <div className="flex items-center justify-between px-6 py-4">
-                            <PaginationButtons page={meta.page} totalPages={meta.lastPage} />
-                        </div>
-                    )
-                }
+                        meta && (
+                            <div className="flex items-center justify-between px-6 py-4">
+                                <PaginationButtons page={meta.page} totalPages={meta.lastPage} />
+                            </div>
+                        )
+                    }
                 </div>
             </CardContent>
         </Card>

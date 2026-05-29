@@ -3,6 +3,7 @@ import { DataTable } from '#/shared/components/data-table/data-table';
 
 import type { Student } from '../../entities/student.entity';
 import type { PaginationMeta } from '#/shared/types/pagination';
+import { CreateStudentDialog } from '../create-student-dialog';
 
 interface Props {
     students: Student[];
@@ -20,7 +21,7 @@ export const StudentTable = ({ isPending, meta, students }: Props) => {
                 title={`Registro de estudiantes`}
                 meta={meta}
                 isLoading={isPending}
-                actions={<></>}
+                actions={<CreateStudentDialog/>}
             />
         </>
     );
