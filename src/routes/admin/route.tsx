@@ -1,18 +1,22 @@
 import { Sidebar } from '#/shared/layouts/sidebar';
-import { createFileRoute } from '@tanstack/react-router';
+import { dataTableSearchSchema } from '#/shared/schemas/data-table-search.schema';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
+
 
 export const Route = createFileRoute('/admin')({
+    validateSearch: dataTableSearchSchema,
     component: RouteComponent,
 });
 
 function RouteComponent() {
     return (
         <>
-            <main className='flex h-screen'>
-
+            <div className='flex h-screen overflow-hidden'>
                 <Sidebar />
-
-            </main>
+                <main className='flex-1 overflow-y-auto pb-8'>
+                    <Outlet />
+                </main>
+            </div>
         </>
     );
 }

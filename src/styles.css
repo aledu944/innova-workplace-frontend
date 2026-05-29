@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
 
@@ -40,7 +40,7 @@
     --sidebar-accent-foreground: oklch(0.9730 0.0070 268.5481);
     --sidebar-border: oklch(0.2704 0.0563 266.9444);
     --sidebar-ring: oklch(0.6167 0.2232 289.5741);
-    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: "Mulish",ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --radius: 0.75rem;
@@ -168,6 +168,10 @@
     --shadow-2xl: var(--shadow-2xl);
 }
 
+@utility container {
+    @apply mx-auto max-w-[90%]
+}
+
 @layer base {
     * {
         @apply border-border outline-ring/50;
@@ -180,7 +184,7 @@
 
 @layer components {
     .sidebar {
-        @apply bg-sidebar text-sidebar-foreground max-w-xs w-full border-r  ;
+        @apply bg-sidebar text-sidebar-foreground max-w-xs w-full border-r flex-shrink-0 h-full overflow-y-auto;
     }
 
     .sidebar__menu--item {

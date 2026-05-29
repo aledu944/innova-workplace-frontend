@@ -1,10 +1,10 @@
-import { BookIcon, Certificate01Icon, Certificate02Icon, CertificateIcon, DashboardSquareIcon, IdentityCardIcon, Users } from "@hugeicons/core-free-icons";
+import { BookIcon, Certificate01Icon, Certificate02Icon, DashboardSquareIcon, IdentityCardIcon, Users } from "@hugeicons/core-free-icons";
 
 
 export const SIDEBAR_MENU_OPTIONS = [
     {
         label: 'Dashboard',
-        path: '/admin',
+        path: '/admin/dashboard',
         icon: DashboardSquareIcon,
     },
     {

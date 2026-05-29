@@ -1,8 +1,9 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
+import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
+import { TanStackDevtools } from '@tanstack/react-devtools';
 
-import appCss from '../styles.css?url'
+import appCss from '../styles.css?url';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export const Route = createRootRoute({
     head: () => ({
@@ -26,16 +27,20 @@ export const Route = createRootRoute({
         ],
     }),
     shellComponent: RootDocument,
-})
+});
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+const queryClient = new QueryClient();
+
+function RootDocument({ children }: { children: React.ReactNode; }) {
     return (
         <html lang="es">
             <head>
                 <HeadContent />
             </head>
             <body className='dark'>
-                {children}
+                <QueryClientProvider client={queryClient}>
+                    {children}
+                </QueryClientProvider>
                 <TanStackDevtools
                     config={{
                         position: 'bottom-right',
@@ -50,5 +55,5 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 <Scripts />
             </body>
         </html>
-    )
+    );
 }

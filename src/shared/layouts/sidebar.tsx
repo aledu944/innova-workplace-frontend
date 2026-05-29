@@ -17,7 +17,9 @@ export const Sidebar = () => {
                                 <Link 
                                     to={option.path}
                                     className='sidebar__menu--item'
+                                    
                                     activeProps={{
+                                        
                                         className: 'sidebar__menu--item--active',
                                     }}
                                 >
