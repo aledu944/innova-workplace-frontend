@@ -1,6 +1,7 @@
 import apiClient from "@/shared/lib/api-client";
 import { createServerFn } from "@tanstack/react-start";
 import { courseUpdateSchema } from "../schema";
+import { handleServerFunctionError } from "@/shared/helpers";
 
 export const updateCourse = createServerFn({ method: "POST" })
     .inputValidator(courseUpdateSchema)
@@ -18,9 +19,6 @@ export const updateCourse = createServerFn({ method: "POST" })
                 error: null,
             };
         } catch (error) {
-            return {
-                data: null,
-                error: "Error al actualizar el curso",
-            };
+            return handleServerFunctionError(error);
         }
     });

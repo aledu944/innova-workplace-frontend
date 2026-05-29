@@ -7,7 +7,6 @@ import { useInstructorCombobox } from "../hooks/use-instructor-combobox";
 import {
     Combobox,
     ComboboxContent,
-    ComboboxEmpty,
     ComboboxGroup,
     ComboboxInput,
     ComboboxItem,
@@ -83,23 +82,28 @@ export const InstructorCombobox = ({ value, onValueChange, selectedLabel }: Prop
                         </div>
                     ) : (
                         <>
-                            <ComboboxEmpty>No encontrado.</ComboboxEmpty>
-                            <ComboboxList>
-                                <ComboboxGroup>
-                                    {instructors.map((instructor) => (
-                                        <ComboboxItem key={instructor.id} value={instructor.id}>
-                                            <span className="flex flex-col pr-6">
-                                                <span>
-                                                    {instructor.name} {instructor.lastName}
+                            {instructors.length === 0 ? (
+                                <div className="p-4 text-center text-sm text-muted-foreground">
+                                    No encontrado.
+                                </div>
+                            ) : (
+                                <ComboboxList>
+                                    <ComboboxGroup>
+                                        {instructors.map((instructor) => (
+                                            <ComboboxItem key={instructor.id} value={instructor.id}>
+                                                <span className="flex flex-col pr-6">
+                                                    <span>
+                                                        {instructor.name} {instructor.lastName}
+                                                    </span>
+                                                    <span className="text-xs text-muted-foreground">
+                                                        {instructor.email}
+                                                    </span>
                                                 </span>
-                                                <span className="text-xs text-muted-foreground">
-                                                    {instructor.email}
-                                                </span>
-                                            </span>
-                                        </ComboboxItem>
-                                    ))}
-                                </ComboboxGroup>
-                            </ComboboxList>
+                                            </ComboboxItem>
+                                        ))}
+                                    </ComboboxGroup>
+                                </ComboboxList>
+                            )}
                         </>
                     )}
                 </ComboboxContent>

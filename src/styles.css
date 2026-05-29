@@ -194,4 +194,52 @@
     .sidebar__menu--item--active {
         @apply bg-primary/20 hover:bg-primary/19;
     }
+
+    .course-md-editor.w-md-editor {
+        background-color: var(--card);
+        color: var(--foreground);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: none;
+        overflow: hidden;
+    }
+
+    .course-md-editor .w-md-editor-toolbar {
+        background-color: var(--muted);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .course-md-editor .w-md-editor-toolbar li > button {
+        color: var(--muted-foreground);
+    }
+
+    .course-md-editor .w-md-editor-toolbar li > button:hover,
+    .course-md-editor .w-md-editor-toolbar li > button[data-active="true"] {
+        color: var(--foreground);
+        background-color: var(--accent);
+    }
+
+    .course-md-editor .w-md-editor-content,
+    .course-md-editor .w-md-editor-area,
+    .course-md-editor .w-md-editor-input,
+    .course-md-editor .w-md-editor-text,
+    .course-md-editor .w-md-editor-preview,
+    .course-md-editor .w-md-editor-text-pre > code,
+    .course-md-editor .w-md-editor-text-input,
+    .course-md-editor .wmde-markdown {
+        background-color: var(--card) !important;
+        color: var(--foreground) !important;
+    }
+
+    .course-md-editor .w-md-editor-preview {
+        box-shadow: inset 1px 0 0 var(--border);
+    }
+
+    .course-md-editor .wmde-markdown {
+        --color-canvas-default: var(--card);
+        --color-fg-default: var(--foreground);
+        --color-border-default: var(--border);
+        --color-accent-fg: var(--primary);
+        --color-neutral-muted: var(--muted);
+    }
 }

@@ -2,7 +2,6 @@
 
 import { useEffect, useState, type ChangeEvent, type KeyboardEvent } from 'react';
 
-import { Input } from '../ui/input';
 import { useDataTableSearch } from '#/shared/hooks/use-data-table-search';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Cancel01Icon, Search01Icon } from '@hugeicons/core-free-icons';

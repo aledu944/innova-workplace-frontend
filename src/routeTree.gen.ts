@@ -14,6 +14,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminStudentsIndexRouteImport } from './routes/admin/students/index'
 import { Route as AdminDashboardIndexRouteImport } from './routes/admin/dashboard/index'
 import { Route as AdminCoursesIndexRouteImport } from './routes/admin/courses/index'
+import { Route as AdminCoursesNewRouteImport } from './routes/admin/courses/new'
+import { Route as AdminCoursesSlugEditRouteImport } from './routes/admin/courses/$slug/edit'
 
 const AdminRouteRoute = AdminRouteRouteImport.update({
   id: '/admin',
@@ -40,46 +42,73 @@ const AdminCoursesIndexRoute = AdminCoursesIndexRouteImport.update({
   path: '/courses/',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AdminCoursesNewRoute = AdminCoursesNewRouteImport.update({
+  id: '/courses/new',
+  path: '/courses/new',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminCoursesSlugEditRoute = AdminCoursesSlugEditRouteImport.update({
+  id: '/courses/$slug/edit',
+  path: '/courses/$slug/edit',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
+  '/admin/courses/new': typeof AdminCoursesNewRoute
   '/admin/courses/': typeof AdminCoursesIndexRoute
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
   '/admin/students/': typeof AdminStudentsIndexRoute
+  '/admin/courses/$slug/edit': typeof AdminCoursesSlugEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
+  '/admin/courses/new': typeof AdminCoursesNewRoute
   '/admin/courses': typeof AdminCoursesIndexRoute
   '/admin/dashboard': typeof AdminDashboardIndexRoute
   '/admin/students': typeof AdminStudentsIndexRoute
+  '/admin/courses/$slug/edit': typeof AdminCoursesSlugEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
+  '/admin/courses/new': typeof AdminCoursesNewRoute
   '/admin/courses/': typeof AdminCoursesIndexRoute
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
   '/admin/students/': typeof AdminStudentsIndexRoute
+  '/admin/courses/$slug/edit': typeof AdminCoursesSlugEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/admin'
+    | '/admin/courses/new'
     | '/admin/courses/'
     | '/admin/dashboard/'
     | '/admin/students/'
+    | '/admin/courses/$slug/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/admin/courses' | '/admin/dashboard' | '/admin/students'
+  to:
+    | '/'
+    | '/admin'
+    | '/admin/courses/new'
+    | '/admin/courses'
+    | '/admin/dashboard'
+    | '/admin/students'
+    | '/admin/courses/$slug/edit'
   id:
     | '__root__'
     | '/'
     | '/admin'
+    | '/admin/courses/new'
     | '/admin/courses/'
     | '/admin/dashboard/'
     | '/admin/students/'
+    | '/admin/courses/$slug/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -124,19 +153,37 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCoursesIndexRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/admin/courses/new': {
+      id: '/admin/courses/new'
+      path: '/courses/new'
+      fullPath: '/admin/courses/new'
+      preLoaderRoute: typeof AdminCoursesNewRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/courses/$slug/edit': {
+      id: '/admin/courses/$slug/edit'
+      path: '/courses/$slug/edit'
+      fullPath: '/admin/courses/$slug/edit'
+      preLoaderRoute: typeof AdminCoursesSlugEditRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
   }
 }
 
 interface AdminRouteRouteChildren {
+  AdminCoursesNewRoute: typeof AdminCoursesNewRoute
   AdminCoursesIndexRoute: typeof AdminCoursesIndexRoute
   AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
   AdminStudentsIndexRoute: typeof AdminStudentsIndexRoute
+  AdminCoursesSlugEditRoute: typeof AdminCoursesSlugEditRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminCoursesNewRoute: AdminCoursesNewRoute,
   AdminCoursesIndexRoute: AdminCoursesIndexRoute,
   AdminDashboardIndexRoute: AdminDashboardIndexRoute,
   AdminStudentsIndexRoute: AdminStudentsIndexRoute,
+  AdminCoursesSlugEditRoute: AdminCoursesSlugEditRoute,
 }
 
 const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(

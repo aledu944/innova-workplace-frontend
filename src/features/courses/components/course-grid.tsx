@@ -1,16 +1,14 @@
 "use client";
 
-import { BookOpenIcon, CalendarIcon, ClockIcon, ImageIcon, MonitorPlayIcon, UsersIcon } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { BookOpenIcon, CalendarIcon, ClockIcon, ImageIcon, PencilIcon, PlusIcon, UsersIcon } from "lucide-react";
 
 import type { Course } from "../entities/course.entity";
-import { CreateCourseDialog } from "./create-course-dialog";
-import { EditCourseDialog } from "./edit-course-dialog";
-import { COURSE_LEVEL_LABELS, COURSE_MODALITY_LABELS, COURSE_TYPE_LABELS } from "../constants";
 
 import { Badge } from "@/shared/components/ui/badge";
+import { Button } from "@/shared/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/shared/components/ui/card";
 import { DataTableSearchInput } from "@/shared/components/data-table/data-table-search-input";
-import { DataTableStatusFilter } from "@/shared/components/data-table/data-table-status-filter";
 import { PaginationButtons } from "@/shared/components/data-table/pagination-buttons";
 import { formatDate } from "@/shared/helpers";
 import type { PaginationMeta } from "@/shared/types/pagination";
@@ -29,6 +27,8 @@ const formatPrice = (course: Course) =>
         maximumFractionDigits: 2,
     }).format(course.price);
 
+const coursesSearch = { page: 1, limit: 10, search: "" };
+
 export const CourseGrid = ({ courses, isPending, meta }: Props) => {
     return (
         <Card>
@@ -40,7 +40,12 @@ export const CourseGrid = ({ courses, isPending, meta }: Props) => {
                     </div>
                     <div className="flex flex-wrap items-center gap-3 justify-between">
                         <DataTableSearchInput placeholder="Buscar curso" />
-                        <CreateCourseDialog />
+                        <Button asChild>
+                            <Link to="/admin/courses/new" search={coursesSearch}>
+                                <PlusIcon className="size-4" />
+                                Nuevo curso
+                            </Link>
+                        </Button>
                     </div>
                 </div>
 
@@ -100,7 +105,12 @@ export const CourseGrid = ({ courses, isPending, meta }: Props) => {
                                         <p className="text-xs text-muted-foreground">Precio</p>
                                         <p className="text-lg font-bold">{formatPrice(course)}</p>
                                     </div>
-                                    <EditCourseDialog course={course} />
+                                    <Button asChild variant="outline" size="sm">
+                                        <Link to="/admin/courses/$slug/edit" params={{ slug: course.slug }} search={coursesSearch}>
+                                            <PencilIcon className="size-4" />
+                                            Editar
+                                        </Link>
+                                    </Button>
                                 </CardFooter>
                             </article>
                         ))}

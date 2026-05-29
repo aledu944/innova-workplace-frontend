@@ -1,8 +1,7 @@
 "use client";
-import { useState } from 'react';
 import { Pagination, PaginationContent, PaginationItem } from '../ui/pagination';
 import { Button } from '../ui/button';
-import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 
 
 interface Props {
@@ -11,9 +10,7 @@ interface Props {
 }
 
 export const PaginationButtons = ({ page = 1, totalPages }: Props) => {
-    const [isLoading, setIsLoading] = useState(false);
-
-    const { isActive } = useSearch({ strict: false }) as any;
+    const isLoading = false;
     const navigate = useNavigate();
 
     const handleChange = (newPage: number) => {

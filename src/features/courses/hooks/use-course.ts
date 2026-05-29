@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
@@ -16,6 +16,10 @@ import {
     type CourseCreateInput,
     type CourseUpdateInput,
 } from "../schema";
+
+const courseCreateResolver = zodResolver(courseCreateSchema) as Resolver<CourseCreateInput, unknown, CourseCreateInput>;
+const courseUpdateResolver = zodResolver(courseUpdateSchema) as Resolver<CourseUpdateInput, unknown, CourseUpdateInput>;
+const coursesSearch = { page: 1, limit: 10, search: "" };
 
 const DEFAULT_MODULE = {
     title: "",
@@ -43,6 +47,16 @@ const DEFAULT_COURSE_VALUES: CourseCreateInput = {
     type: "COURSE",
     courseModules: [DEFAULT_MODULE],
 };
+
+const getDefaultCourseValues = (): CourseCreateInput => ({
+    ...DEFAULT_COURSE_VALUES,
+    startDate: new Date(),
+    courseModules: [{ ...DEFAULT_MODULE }],
+});
+
+interface UseCourseOptions {
+    redirectOnSuccess?: boolean;
+}
 
 const toDateTimeLocalValue = (date: Date) => {
     const offset = date.getTimezoneOffset();
@@ -72,23 +86,24 @@ const toCourseUpdateInput = (course: Course): CourseUpdateInput => ({
 
 export const getCourseDateTimeLocalValue = (date: Date) => toDateTimeLocalValue(date);
 
-export const useCourse = (course?: Course) => {
+export const useCourse = (course?: Course, options: UseCourseOptions = {}) => {
     const router = useRouter();
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [isUploadingImage, setIsUploadingImage] = useState(false);
+    const redirectOnSuccess = options.redirectOnSuccess ?? false;
 
     const updateDefaultValues = useMemo(
-        () => (course ? toCourseUpdateInput(course) : { ...DEFAULT_COURSE_VALUES, id: "" }),
+        () => (course ? toCourseUpdateInput(course) : { ...getDefaultCourseValues(), id: "" }),
         [course]
     );
 
-    const createForm = useForm<CourseCreateInput>({
-        resolver: zodResolver(courseCreateSchema),
-        defaultValues: DEFAULT_COURSE_VALUES,
+    const createForm = useForm<CourseCreateInput, unknown, CourseCreateInput>({
+        resolver: courseCreateResolver,
+        defaultValues: getDefaultCourseValues(),
     });
 
-    const updateForm = useForm<CourseUpdateInput>({
-        resolver: zodResolver(courseUpdateSchema),
+    const updateForm = useForm<CourseUpdateInput, unknown, CourseUpdateInput>({
+        resolver: courseUpdateResolver,
         defaultValues: updateDefaultValues,
     });
 
@@ -120,9 +135,14 @@ export const useCourse = (course?: Course) => {
                 return;
             }
 
-            createForm.reset(DEFAULT_COURSE_VALUES);
+            createForm.reset(getDefaultCourseValues());
             toast.success(data.message);
             await revalidateCourses();
+            if (redirectOnSuccess) {
+                await router.navigate({ to: "/admin/courses", search: coursesSearch });
+                return;
+            }
+
             setIsOpenModal(false);
         },
     });
@@ -144,6 +164,11 @@ export const useCourse = (course?: Course) => {
             updateForm.reset();
             toast.success(data.message);
             await revalidateCourses();
+            if (redirectOnSuccess) {
+                await router.navigate({ to: "/admin/courses", search: coursesSearch });
+                return;
+            }
+
             setIsOpenModal(false);
         },
     });
