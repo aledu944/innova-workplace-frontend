@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminStudentsIndexRouteImport } from './routes/admin/students/index'
+import { Route as AdminEnrollmentsIndexRouteImport } from './routes/admin/enrollments/index'
 import { Route as AdminDashboardIndexRouteImport } from './routes/admin/dashboard/index'
 import { Route as AdminCoursesIndexRouteImport } from './routes/admin/courses/index'
 import { Route as AdminCoursesNewRouteImport } from './routes/admin/courses/new'
@@ -30,6 +31,11 @@ const IndexRoute = IndexRouteImport.update({
 const AdminStudentsIndexRoute = AdminStudentsIndexRouteImport.update({
   id: '/students/',
   path: '/students/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminEnrollmentsIndexRoute = AdminEnrollmentsIndexRouteImport.update({
+  id: '/enrollments/',
+  path: '/enrollments/',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 const AdminDashboardIndexRoute = AdminDashboardIndexRouteImport.update({
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/admin/courses/new': typeof AdminCoursesNewRoute
   '/admin/courses/': typeof AdminCoursesIndexRoute
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
+  '/admin/enrollments/': typeof AdminEnrollmentsIndexRoute
   '/admin/students/': typeof AdminStudentsIndexRoute
   '/admin/courses/$slug/edit': typeof AdminCoursesSlugEditRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/admin/courses/new': typeof AdminCoursesNewRoute
   '/admin/courses': typeof AdminCoursesIndexRoute
   '/admin/dashboard': typeof AdminDashboardIndexRoute
+  '/admin/enrollments': typeof AdminEnrollmentsIndexRoute
   '/admin/students': typeof AdminStudentsIndexRoute
   '/admin/courses/$slug/edit': typeof AdminCoursesSlugEditRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/admin/courses/new': typeof AdminCoursesNewRoute
   '/admin/courses/': typeof AdminCoursesIndexRoute
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
+  '/admin/enrollments/': typeof AdminEnrollmentsIndexRoute
   '/admin/students/': typeof AdminStudentsIndexRoute
   '/admin/courses/$slug/edit': typeof AdminCoursesSlugEditRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/admin/courses/new'
     | '/admin/courses/'
     | '/admin/dashboard/'
+    | '/admin/enrollments/'
     | '/admin/students/'
     | '/admin/courses/$slug/edit'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/admin/courses/new'
     | '/admin/courses'
     | '/admin/dashboard'
+    | '/admin/enrollments'
     | '/admin/students'
     | '/admin/courses/$slug/edit'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/admin/courses/new'
     | '/admin/courses/'
     | '/admin/dashboard/'
+    | '/admin/enrollments/'
     | '/admin/students/'
     | '/admin/courses/$slug/edit'
   fileRoutesById: FileRoutesById
@@ -137,6 +149,13 @@ declare module '@tanstack/react-router' {
       path: '/students'
       fullPath: '/admin/students/'
       preLoaderRoute: typeof AdminStudentsIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/enrollments/': {
+      id: '/admin/enrollments/'
+      path: '/enrollments'
+      fullPath: '/admin/enrollments/'
+      preLoaderRoute: typeof AdminEnrollmentsIndexRouteImport
       parentRoute: typeof AdminRouteRoute
     }
     '/admin/dashboard/': {
@@ -174,6 +193,7 @@ interface AdminRouteRouteChildren {
   AdminCoursesNewRoute: typeof AdminCoursesNewRoute
   AdminCoursesIndexRoute: typeof AdminCoursesIndexRoute
   AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
+  AdminEnrollmentsIndexRoute: typeof AdminEnrollmentsIndexRoute
   AdminStudentsIndexRoute: typeof AdminStudentsIndexRoute
   AdminCoursesSlugEditRoute: typeof AdminCoursesSlugEditRoute
 }
@@ -182,6 +202,7 @@ const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminCoursesNewRoute: AdminCoursesNewRoute,
   AdminCoursesIndexRoute: AdminCoursesIndexRoute,
   AdminDashboardIndexRoute: AdminDashboardIndexRoute,
+  AdminEnrollmentsIndexRoute: AdminEnrollmentsIndexRoute,
   AdminStudentsIndexRoute: AdminStudentsIndexRoute,
   AdminCoursesSlugEditRoute: AdminCoursesSlugEditRoute,
 }
