@@ -1,9 +1,8 @@
-'use client'
-
 import { MoreHorizontal } from 'lucide-react'
 import type { Enrollment } from '../../entities/enrollment.entity';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/shared/components/ui/dropdown-menu';
 import { Button } from '@/shared/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/shared/components/ui/dropdown-menu';
+import { useCreateCertificate } from '../../hooks/use-create-certificate';
 
 interface Props {
     enrollment: Enrollment;
@@ -11,7 +10,7 @@ interface Props {
 
 export const EnrollmentDropdownAcitons = ({ enrollment }: Props) => {
 
-    // const { handleCreateCertificate, isPending } = useCreateCertificate();
+    const { handleCreateCertificate, isPending } = useCreateCertificate(enrollment);
 
     return (
         <>
@@ -34,8 +33,7 @@ export const EnrollmentDropdownAcitons = ({ enrollment }: Props) => {
                                 </a>
                             </DropdownMenuItem>
                         ) : (
-                            <DropdownMenuItem onClick={() => {}} disabled={true}>
-                            {/* <DropdownMenuItem onClick={() => handleCreateCertificate(enrollment)} disabled={isPending}> */}
+                            <DropdownMenuItem onClick={handleCreateCertificate} disabled={isPending}>
                                 Generar certificado
                             </DropdownMenuItem>
                         )

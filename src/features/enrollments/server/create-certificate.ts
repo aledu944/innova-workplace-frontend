@@ -1,44 +1,34 @@
-'use server'
+import resend from "@/shared/lib/resend";
+import { createServerFn } from "@tanstack/react-start";
 
-import apiClient from "@/lib/api-client"
-import resend from "@/lib/resend"
-import { isAxiosError } from "axios"
-import CreateCertificateEmail from "../template/create-certificate-email.template"
-import { EnrollmentSummary } from "../interfaces/enrollment.interface"
+import CreateCertificateEmail from "../template/create-certificate-email.template";
+import type { Enrollment } from "../entities/enrollment.entity";
+
+import apiClient from "@/shared/lib/api-client";
+import { handleServerFunctionError } from "@/shared/helpers";
 
 
-export const createCertificate = async (enrollment: EnrollmentSummary) => {
+export const createCertificate = createServerFn({ method: 'POST' })
+    .inputValidator((enrollment: Enrollment) => enrollment)
+    .handler(
+        async ({data: enrollment }) => {
+            try {
+                const { data } = await apiClient.post<{ id: string; }>(`/certificates`, { enrollmentId: enrollment.id });
 
-    try {
+                await resend.emails.send({
+                    from: 'Innova Code <certificates@mail.innova-code.dev>',
+                    to: [enrollment.student.email],
+                    subject: 'Certificado de finalización 🥳',
+                    react: CreateCertificateEmail({ certificateId: data.id }),
+                });
 
-        const { data } = await apiClient.post<{ id: string }>(`/certificates`, { enrollmentId: enrollment.id })
+                return {
+                    data,
+                    error: null
+                };
 
-        await resend.emails.send({
-            from: 'Innova Code <certificates@mail.innova-code.dev>',
-            to: [enrollment.student.email],
-            subject: 'Certificado de finalización 🥳',
-            react: CreateCertificateEmail({ certificateId: data.id }),
-        });
-
-        return {
-            data,
-            error: null
-        }
-
-    } catch (error) {
-        console.log(error);
-
-        if (isAxiosError(error)) {
-            return {
-                data: null,
-                error: error.response?.data || error.message
+            } catch (error) {
+                return handleServerFunctionError(error);
             }
         }
-
-        return {
-            data: null,
-            error: 'An unexpected error occurred'
-        }
-
-    }
-}
+    );

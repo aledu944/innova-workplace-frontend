@@ -1,9 +1,10 @@
-import { columns } from './columns'
+import { columns } from './columns';
 
 import type { PaginationMeta } from '@/shared/types/pagination';
 
 import { DataTable } from '@/shared/components/data-table/data-table';
 import type { Enrollment } from '@/features/enrollments/entities/enrollment.entity';
+import { CreateEnrollmentDialog } from '../create-enrollment-dialog';
 
 
 
@@ -22,9 +23,13 @@ export const EnrollmentsTable = ({ enrollments, isPending, meta }: Props) => {
                 columns={columns}
                 isLoading={isPending}
                 title={`Listado de Inscripciones`}
-                actions={<></>}
+                actions={
+                    <>
+                        <CreateEnrollmentDialog />
+                    </>
+                }
                 meta={meta}
             />
         </>
-    )
-}
+    );
+};

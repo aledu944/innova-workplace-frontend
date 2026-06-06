@@ -1,26 +1,25 @@
-'use server';
 import apiClient from "@/shared/lib/api-client";
 import { createServerFn } from "@tanstack/react-start";
-
-
-
-interface CreateEnrollmentOptions {
-    studentId: string;
-    courseId: string;
-    paymentMethod: PAYMENT_METHODS;
-}
+import { handleServerFunctionError } from "@/shared/helpers";
+import { enrollmentCreateSchema } from "../schema";
 
 
 export const createEnrollment = createServerFn({ method: 'POST' })
-    .inputValidator(CreateEnrollmentOptions)
+    .inputValidator(enrollmentCreateSchema)
     .handler(
         async ({ data: enrollment }) => {
 
-            const { data } = await apiClient.post('/enrollments', enrollment);
+            try {
+                const { data } = await apiClient.post('/enrollments', enrollment);
+    
+                return {
+                    error: null,
+                    data,
+                };
+                
+            } catch (error) {
+                return handleServerFunctionError(error);
+            }
 
-            return {
-                error: null,
-                data,
-            };
         }
     );

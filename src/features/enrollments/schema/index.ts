@@ -1,11 +1,10 @@
 import z from "zod";
+import { PaymentMethod } from "../types/payment-methods.enum";
 
-
-
-export const createEnrollmentSchema = z.object({
+export const enrollmentCreateSchema = z.object({
+    studentId: z.string(),
     courseId: z.string(),
-    paymentMethod: z.enum(['credit_card', 'paypal', 'bank_transfer']),
-    discountCode: z.string().optional(),
+    paymentMethod: z.enum(PaymentMethod),
 });
 
-export type CreateEnrollmentDTO = z.infer<typeof createEnrollmentSchema>;
+export type EnrollmentCreateInput = z.infer<typeof enrollmentCreateSchema>;
