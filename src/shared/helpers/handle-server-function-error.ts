@@ -4,6 +4,9 @@ import { isAxiosError } from "axios";
 
 export const handleServerFunctionError = (error: unknown) => {
     if( isAxiosError(error) ) {
+
+        console.log(error.response?.data);
+
         if (error.response?.data.message ) {
             return {
                 data: null,
