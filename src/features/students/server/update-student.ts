@@ -1,7 +1,7 @@
 
 import { createServerFn } from "@tanstack/react-start";
 import { studentUpdateSchema } from "../schema";
-import apiClient from "@/shared/lib/api-client";
+import apiClient from "@/shared/lib/api-client.server";
 
 export const updateStudent = createServerFn({ method: "POST" })
     .inputValidator(studentUpdateSchema)

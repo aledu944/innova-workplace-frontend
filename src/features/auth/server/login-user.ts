@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { setCookie } from "@tanstack/react-start-server";
 
 import { loginSchema } from "../schemas";
-import apiClient from "@/shared/lib/api-client";
+import apiClient from "@/shared/lib/api-client.server";
 import { handleServerFunctionError } from "@/shared/helpers";
 import type { LoginResponse } from "../types/login-response.interface";
 

@@ -1,4 +1,4 @@
-import apiClient from "#/shared/lib/api-client";
+import apiClient from "#/shared/lib/api-client.server";
 import { createServerFn } from "@tanstack/react-start";
 import type { GetStudentsResponse } from "../types/get-students-response.interface";
 import { StudentMapper } from "../mappers/student.mapper";

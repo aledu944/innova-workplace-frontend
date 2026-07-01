@@ -1,7 +1,7 @@
 import { Sidebar } from '#/shared/layouts/sidebar';
 import { dataTableSearchSchema } from '#/shared/schemas/data-table-search.schema';
 import { createFileRoute, Outlet } from '@tanstack/react-router';
-import { getSession } from '#/features/auth/server/get-session.server';
+import { getSession } from '#/features/auth/server/get-session';
 
 
 export const Route = createFileRoute('/admin')({

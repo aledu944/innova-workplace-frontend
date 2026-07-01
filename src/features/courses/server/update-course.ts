@@ -1,4 +1,4 @@
-import apiClient from "@/shared/lib/api-client";
+import apiClient from "@/shared/lib/api-client.server";
 import { createServerFn } from "@tanstack/react-start";
 import { courseUpdateSchema } from "../schema";
 import { handleServerFunctionError } from "@/shared/helpers";
