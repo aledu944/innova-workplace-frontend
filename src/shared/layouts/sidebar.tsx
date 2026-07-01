@@ -18,7 +18,7 @@ export const Sidebar = () => {
                                     to={option.path}
                                     className='sidebar__menu--item'
                                     preload={false}
-                                    activeProps={{
+                                    activeProps={{  
                                         className: 'sidebar__menu--item--active',
                                     }}
                                 >
