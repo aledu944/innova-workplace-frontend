@@ -4,7 +4,7 @@ import { createServerFn } from "@tanstack/react-start";
 import CreateCertificateEmail from "../template/create-certificate-email.template";
 import type { Enrollment } from "../entities/enrollment.entity";
 
-import apiClient from "@/shared/lib/api-client.server";
+import apiClient from "@/shared/lib/api-client";
 import { handleServerFunctionError } from "@/shared/helpers";
 
 

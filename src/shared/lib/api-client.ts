@@ -2,7 +2,7 @@ import { getCookie } from "@tanstack/react-start-server";
 import axios from "axios";
 
 const apiClient = axios.create({
-    baseURL: process.env.API_URL || "http://localhost:8000/api",
+    baseURL: import.meta.env.VITE_API_URL,
 });
 
 apiClient.interceptors.request.use((config) => {
