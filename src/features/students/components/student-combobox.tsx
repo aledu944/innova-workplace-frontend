@@ -33,13 +33,13 @@ export const StudentCombobox = ({ onValueChange }: Props) => {
                 items={students}
                 itemToStringValue={(student: Student) => student.name}
             >
-                <ComboboxInput value={searchInput} onChange={handleInputChange} placeholder="Select a student" />
+                <ComboboxInput id="student-combobox" value={searchInput} onChange={handleInputChange} placeholder="Busca un estudiante por nombre" />
                 <ComboboxContent
                     style={{
                         pointerEvents: 'auto',
                     }}
                 >
-                    <ComboboxEmpty>No items found.</ComboboxEmpty>
+                    <ComboboxEmpty>No se encontraron estudiantes.</ComboboxEmpty>
                     <ComboboxList>
                         {(student: Student) => (
                             <ComboboxItem

@@ -3,6 +3,7 @@ import type { Enrollment } from '../../entities/enrollment.entity';
 import { Button } from '@/shared/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/shared/components/ui/dropdown-menu';
 import { useCreateCertificate } from '../../hooks/use-create-certificate';
+import { useDownloadCertificate } from '../../hooks/use-download-certificate';
 
 interface Props {
     enrollment: Enrollment;
@@ -11,6 +12,7 @@ interface Props {
 export const EnrollmentDropdownAcitons = ({ enrollment }: Props) => {
 
     const { handleCreateCertificate, isPending } = useCreateCertificate(enrollment);
+    const { handleDownloadCertificate, isPending: isDownloading } = useDownloadCertificate(enrollment);
 
     return (
         <>
@@ -27,11 +29,16 @@ export const EnrollmentDropdownAcitons = ({ enrollment }: Props) => {
 
                     {
                         enrollment.certificate ? (
-                            <DropdownMenuItem asChild>
-                                <a href={`https://www.innova-code.dev/estudiantes/certificates/${enrollment.certificate.id}`} target="_blank" rel="noopener noreferrer">
-                                    Ver certificado
-                                </a>
-                            </DropdownMenuItem>
+                            <>
+                                <DropdownMenuItem asChild>
+                                    <a href={`https://www.innova-code.dev/estudiantes/certificates/${enrollment.certificate.id}`} target="_blank" rel="noopener noreferrer">
+                                        Ver certificado
+                                    </a>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={handleDownloadCertificate} disabled={isDownloading}>
+                                    Descargar certificado
+                                </DropdownMenuItem>
+                            </>
                         ) : (
                             <DropdownMenuItem onClick={handleCreateCertificate} disabled={isPending}>
                                 Generar certificado

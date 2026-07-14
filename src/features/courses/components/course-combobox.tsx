@@ -27,18 +27,18 @@ export const CourseCombobox = ({ onValueChange }: Props) => {
 
     return (
         <>
-            <Label htmlFor="student-combobox">Selecciona un estudiante</Label>
+            <Label htmlFor="course-combobox">Selecciona un curso</Label>
             <Combobox
                 items={courses}
                 onValueChange={(course) => handleSelect(course as Course)}
             >
-                <ComboboxInput value={searchInput} onChange={handleInputChange} placeholder="Select a student" />
+                <ComboboxInput id="course-combobox" value={searchInput} onChange={handleInputChange} placeholder="Busca un curso por nombre" />
                 <ComboboxContent
                     style={{
                         pointerEvents: 'auto',
                     }}
                 >
-                    <ComboboxEmpty>No items found.</ComboboxEmpty>
+                    <ComboboxEmpty>No se encontraron cursos.</ComboboxEmpty>
                     <ComboboxList>
                         {(course: Course) => (
                             <ComboboxItem

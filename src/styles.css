@@ -184,7 +184,7 @@
 
 @layer components {
     .sidebar {
-        @apply bg-sidebar text-sidebar-foreground max-w-xs w-full border-r flex-shrink-0 h-full overflow-y-auto;
+        @apply bg-sidebar text-sidebar-foreground max-w-xs w-full border-r flex-shrink-0 h-full overflow-y-auto flex flex-col;
     }
 
     .sidebar__menu--item {
@@ -193,6 +193,14 @@
 
     .sidebar__menu--item--active {
         @apply bg-primary/20 hover:bg-primary/19;
+    }
+
+    .sidebar__footer {
+        @apply mt-auto border-t border-sidebar-border px-4 py-4;
+    }
+
+    .sidebar__menu--item--logout {
+        @apply w-full text-sidebar-foreground/70 hover:text-destructive hover:bg-destructive/10 cursor-pointer disabled:pointer-events-none disabled:opacity-50;
     }
 
     .course-md-editor.w-md-editor {

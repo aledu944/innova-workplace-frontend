@@ -1,5 +1,6 @@
 import apiClient from '@/shared/lib/api-client';
 import { createServerFn } from '@tanstack/react-start';
+import { handleServerFunctionError } from '@/shared/helpers';
 import { studentCreateSchema } from '../schema';
 
 
@@ -15,10 +16,7 @@ export const createStudent = createServerFn({ method: "POST" })
             };
 
         } catch (error) {
-            return {
-                data: null,
-                error: "Error al crear el estudiante"
-            };
+            return handleServerFunctionError(error);
         }
     })
 

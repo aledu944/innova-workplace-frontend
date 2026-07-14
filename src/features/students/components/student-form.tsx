@@ -121,12 +121,12 @@ export const StudentForm = ({ form, onSubmit, isSubmitting = false, submitLabel 
                 name="documentNumber"
                 render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>Numero de documento</FieldLabel>
+                        <FieldLabel htmlFor={field.name}>Número de documento</FieldLabel>
                         <Input
                             {...field}
                             id={field.name}
                             aria-invalid={fieldState.invalid}
-                            placeholder="Ingresa el numero de documento"
+                            placeholder="Ingresa el número de documento"
                             autoComplete="off"
                         />
                         {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
